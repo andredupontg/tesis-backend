@@ -67,15 +67,5 @@ def covidDiagnosis(symptomsDataframe):
     aux = separarDataframe(dataframe)
     Y = aux[0]
     X = aux[1]
-    print(X)
-    print(symptomsDataframe)
-    auxSympt = tecnicaOneHotEncoding(
-        symptomsDataframe, "age_60_and_above", "Age 60 At Least")
-    symptomsDataframe = auxSympt
-    auxSympt = tecnicaOneHotEncoding(symptomsDataframe, "gender", "Gender")
-    symptomsDataframe = auxSympt
-    auxSympt = tecnicaOneHotEncoding(
-        symptomsDataframe, "test_indication", "Test Indication")
-    symptomsDataframe = auxSympt
     print(symptomsDataframe)
     regresionLogistica(Y, X, symptomsDataframe)
