@@ -49,7 +49,7 @@ def regresionLogistica(Y, X, symptomsDataframe):
     regresionLog.fit(xOverSamp, yOverSamp)
     print("*********************************** FASE PREDICCION ***********************************")
     result = regresionLog.predict(symptomsDataframe)
-    return result[0]
+    return str(result[0])
 
 
 def covidDiagnosis(symptomsDataframe):
@@ -67,5 +67,4 @@ def covidDiagnosis(symptomsDataframe):
     aux = separarDataframe(dataframe)
     Y = aux[0]
     X = aux[1]
-    print(symptomsDataframe)
-    regresionLogistica(Y, X, symptomsDataframe)
+    return regresionLogistica(Y, X, symptomsDataframe)

@@ -9,8 +9,7 @@ CORS(app)
 
 @app.route('/getResults', methods=['POST'])
 def getResults():
-    symptomsDataframe = pd.DataFrame.from_dict(
-        request.get_json(), orient="index")
+    symptomsDataframe = pd.DataFrame.from_dict(request.get_json())
     covidResult = covidDiagnosis(symptomsDataframe)
     return covidResult
 
