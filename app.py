@@ -1,17 +1,18 @@
-from flask import Flask, request, Response
+from flask import Flask, request
 from flask_cors import CORS
-from flask import jsonify
-import requests
-import json
 from ml import covidDiagnosis
+import pandas as pd
 
 app = Flask(__name__)
 CORS(app)
 
 
 @app.route('/getResults', methods=['POST'])
-def getResults(symptoms):
-    return covidDiagnosis
+def getResults():
+    symptomsDataframe = pd.DataFrame.from_dict(
+        request.get_json(), orient="index")
+    covidResult = covidDiagnosis(symptomsDataframe)
+    return covidResult
 
 
 if __name__ == "__main__":
