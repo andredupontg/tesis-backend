@@ -2,6 +2,7 @@ from sklearn.svm import SVC
 from imblearn.over_sampling import RandomOverSampler
 import pandas as pd
 from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import BaggingClassifier
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 plt.rc("font", size=14)
@@ -52,6 +53,20 @@ def regresionLogistica(Y, X, symptomsDataframe):
     return str(result[0])
 
 
+def bagging(Y, X, symptomsDataframe):
+    print("*********************************** FASE ENTRENAMIENTO ***********************************")
+    xEntrenamiento, xPrueba, yEntrenamiento, yPrueba = train_test_split(
+        X, Y, test_size=0.3, random_state=0, stratify=Y)
+    overSampler = RandomOverSampler(sampling_strategy=0.23)
+    xOverSamp, yOverSamp = overSampler.fit_resample(
+        xEntrenamiento, yEntrenamiento)
+    bg = BaggingClassifier()
+    bg.fit(xOverSamp, yOverSamp)
+    print("*********************************** FASE PREDICCION ***********************************")
+    result = bg.predict(symptomsDataframe)
+    return str(result[0])
+
+
 def covidDiagnosis(symptomsDataframe):
     dataframe = leerDataset()
     aux = limpiezaDataframe(dataframe)
@@ -68,3 +83,4 @@ def covidDiagnosis(symptomsDataframe):
     Y = aux[0]
     X = aux[1]
     return regresionLogistica(Y, X, symptomsDataframe)
+    # return bagging(Y, X, symptomsDataframe)
